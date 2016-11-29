@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var UglifyJS = require('uglify-js');
+var UglifyJS = require(path.join("..", "..", "node_modules", "cordova-minify", "node_modules", 'uglify-js'));
 var CleanCSS = require('clean-css');
 var ImageMin = require('imagemin');
 var imagemin = new ImageMin();
@@ -14,9 +14,10 @@ var rootDir = process.argv[2];
 var platformPath = path.join(rootDir, 'platforms');
 var platform = process.env.CORDOVA_PLATFORMS;
 var cliCommand = process.env.CORDOVA_CMDLINE;
-var isRelease = true;
+// var isRelease = true;
 
-//var isRelease = (cliCommand.indexOf('--release') > -1); // comment the above line and uncomment this line to turn the hook on only for release
+var isRelease = (cliCommand.indexOf('--release') > -1); // comment the above line and uncomment this line to turn the hook on only for release
+
 if (!isRelease) {
     return;
 }
@@ -89,6 +90,10 @@ function compress(file) {
             }));
             console.log('Minifying JPEG File: ' + file);
             break;
+        case '.tpl':
+            console.log('Removing Template File: ' + file);
+            fs.unlinkSync(file);
+            break;
         default:
             console.log('Encountered file with ' + ext + ' extension - not compressing.');
             break;
@@ -108,7 +113,8 @@ switch (platform) {
         return;
 }
 
-var foldersToProcess = ['js', 'css', 'img'];
+// var foldersToProcess = ['js', 'css', 'img'];
+var foldersToProcess = ['js'];
 
 foldersToProcess.forEach(function(folder) {
     processFiles(path.join(platformPath, folder));
