@@ -90,7 +90,7 @@ function compress(file) {
             }));
             console.log('Minifying JPEG File: ' + file);
             break;
-        case '.tpl':
+        case '.jst':
             console.log('Removing Template File: ' + file);
             fs.unlinkSync(file);
             break;
