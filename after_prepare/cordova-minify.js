@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var UglifyJS = require(path.join("..", "..", "node_modules", "cordova-minify", "node_modules", 'uglify-js'));
+var UglifyJS = require('uglify-js');
 var CleanCSS = require('clean-css');
 var ImageMin = require('imagemin');
 var imagemin = new ImageMin();
